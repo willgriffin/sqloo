@@ -1,0 +1,23 @@
+{
+  "name": "sqloo",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "willgriffin@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^9.4.0",
+    "pg": "^8.11.3",
+    "sqlite-vss": "^0.1.2"
+  },
+  "devDependencies": {
+    "vitest": "^1.2.2"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}

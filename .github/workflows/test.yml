@@ -1,0 +1,37 @@
+name: Run Unit Tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: sqloo
+          POSTGRES_PASSWORD: sqloo
+          POSTGRES_DB: sqloo
+        ports:
+          - 5432:5432
+        # Wait for the database to be ready
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+      - name: Install pnpm
+        run: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run tests
+        env:
+          PGDATABASE: sqloo
+          PGUSER: sqloo
+          PGPASSWORD: sqloo
+          PGPORT: 5432
+        run: pnpm test
